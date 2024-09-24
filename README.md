@@ -27,3 +27,14 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+
+
+## MVP TODO
+
+- [x] Make It Deploy
+- [x] Scaffold Basic UI
+- [ ] Actually Setup DB
+- [ ] Attatch DB to UI
+- [ ] Add Web Scraper with Inngest
+- [ ] Add user
+- [ ] Scrape images
