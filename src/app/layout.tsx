@@ -1,9 +1,10 @@
 import "~/styles/globals.css";
-
+import { ClerkProvider } from '@clerk/nextjs'
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { TopNav } from "./_components/topnav";
 
 export const metadata: Metadata = {
   title: "Top Trailblazers",
@@ -11,19 +12,13 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-function TopNav() {
-  return (
-    <nav className="flex items-center justify-between w-full p-4 text-xl font-semibold border-b">
-      <div>Top Trailblazers</div>
-      <div>Add Your Account</div>
-    </nav>
-  )
-}
+
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+    <ClerkProvider>
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
@@ -32,5 +27,6 @@ export default function RootLayout({
         </TRPCReactProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

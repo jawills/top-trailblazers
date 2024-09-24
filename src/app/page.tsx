@@ -1,6 +1,8 @@
 import { Trailblazer, columns } from "./columns"
 import { DataTable } from "./data-table"
 
+export const dynamic = 'force-dynamic';
+
 async function getData(): Promise<Trailblazer[]> {
   // Fetch data from your API here.
   return [
