@@ -1,6 +1,8 @@
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { trailblazers } from "~/server/db/schema";
 
 export const trailblazerRouter = createTRPCRouter({
 
@@ -13,10 +15,11 @@ export const trailblazerRouter = createTRPCRouter({
   //   }),
 
   getLatest: publicProcedure.query(async ({ ctx }) => {
-    const post = await ctx.db.query.trailblazers.findMany({
-      orderBy: (posts, { desc }) => [desc(posts.createdAt)],
+    const trailblazer = await ctx.db.query.trailblazers.findMany({
+      where: (eq(trailblazers.isPublic, true)),
+      orderBy: (trailblazers, { desc }) => [desc(trailblazers.badges)],
     });
 
-    return post ?? null;
+    return trailblazer ?? null;
   }),
 });

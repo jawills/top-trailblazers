@@ -27,6 +27,14 @@ export const trailblazers = createTable(
     rank: varchar('rank', {length: 256}),
     profileSlug: varchar('profile_slug', {length: 256}).unique(),
     profileId: varchar('profile_id', {length: 256}).unique(),
+    salesforceId: varchar('salesforce_id', {length: 256}).unique(),
+    profileUrl: varchar('profile_url', {length: 256}).unique(),
+    avatarUrl: varchar('avatar_url', {length: 256}),
+    title: varchar('title', {length: 256}),
+    description: varchar('description', {length: 256}),
+    role: varchar('role', {length: 256}),
+    isPublic: boolean('is_public'),
+    companyName: varchar('company_name', {length: 256}),
     badges: integer('badges'),
     modules: integer('modules'),
     projects: integer('projects'),
@@ -69,3 +77,6 @@ export const trailheadRanks = createTable(
     title: varchar("title", { length: 256 }),
   }
 );
+
+export type SelectTrailblazer = typeof trailblazers.$inferSelect;
+export type InsertTrailblazer = typeof trailblazers.$inferInsert;
