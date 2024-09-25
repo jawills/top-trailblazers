@@ -3,7 +3,9 @@
 
 import { sql } from "drizzle-orm";
 import {
+  boolean,
   index,
+  integer,
   pgTableCreator,
   serial,
   timestamp,
@@ -18,10 +20,22 @@ import {
  */
 export const createTable = pgTableCreator((name) => `top-trailblazers_${name}`);
 
-export const posts = createTable(
-  "post",
+export const trailblazers = createTable(
+  "trailblazer",
   {
     id: serial("id").primaryKey(),
+    rank: varchar('rank', {length: 256}),
+    profileSlug: varchar('profile_slug', {length: 256}).unique(),
+    profileId: varchar('profile_id', {length: 256}).unique(),
+    badges: integer('badges'),
+    modules: integer('modules'),
+    projects: integer('projects'),
+    trails: integer('trails'),
+    isMvp: boolean('is_mvp'),
+    superBadges: integer('super_badges'),
+    points: integer('points'),
+    lastBadge: varchar('last_badge', {length: 256}),
+    badgeStreak: integer('badge_streak'),
     name: varchar("name", { length: 256 }),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
@@ -29,8 +43,29 @@ export const posts = createTable(
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
       () => new Date()
     ),
-  },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
-  })
+  }
+);
+
+export const certifications = createTable(
+  "certification",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }),
+    logoUrl: varchar("logoUrl", { length: 256 }),
+    infoUrl: varchar("infoUrl", { length: 256 }),
+    product: varchar("product", { length: 256 }),
+    publicDescription: varchar("publicDescription", { length: 256 }),
+    title: varchar("title", { length: 256 }),
+
+  }
+);
+export const trailheadRanks = createTable(
+  "trailhead_rank",
+  {
+    id: serial("id").primaryKey(),
+    imageUrl: varchar("imageUrl", { length: 256 }),
+    requiredPointsSum: integer('requiredPointsSum'),
+    requiredBadgesCount: integer('requiredBadgesCount'),
+    title: varchar("title", { length: 256 }),
+  }
 );

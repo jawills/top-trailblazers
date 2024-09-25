@@ -1,31 +1,12 @@
+import { api } from "~/trpc/server";
 import { Trailblazer, columns } from "./columns"
 import { DataTable } from "./data-table"
 
 export const dynamic = 'force-dynamic';
 
-async function getData(): Promise<Trailblazer[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      picture: 'https://url.com',
-      name: 'Justin Wills',
-      rank: 'Ranger',
-      badges: 1234,
-      modules: 13,
-      projects: 12,
-      trails: 1,
-      superBadges: 13,
-      points: 500000,
-      lastBadge: 'Badge Name',
-      badgeStreak: 1235,
-    },
-    // ...
-  ]
-}
 
 export default async function DemoPage() {
-  const data = await getData()
+  const data = await api.trailblazer.getLatest();
 
   return (
     <main>
