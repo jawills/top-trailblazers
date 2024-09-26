@@ -1,9 +1,11 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
+import { primaryKey } from "drizzle-orm/mysql-core";
 import {
   boolean,
+  date,
   index,
   integer,
   pgTableCreator,
@@ -42,7 +44,6 @@ export const trailblazers = createTable(
     isMvp: boolean('is_mvp'),
     superBadges: integer('super_badges'),
     points: integer('points'),
-    lastBadge: varchar('last_badge', {length: 256}),
     badgeStreak: integer('badge_streak'),
     name: varchar("name", { length: 256 }),
     createdAt: timestamp("created_at", { withTimezone: true })
@@ -58,15 +59,43 @@ export const certifications = createTable(
   "certification",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
-    logoUrl: varchar("logoUrl", { length: 256 }),
-    infoUrl: varchar("infoUrl", { length: 256 }),
+    logoUrl: varchar("logo_url", { length: 1024 }),
+    infoUrl: varchar("info_url", { length: 1024 }),
+    downloadLogoUrl: varchar("download_logo_url", { length: 1024 }),
     product: varchar("product", { length: 256 }),
-    publicDescription: varchar("publicDescription", { length: 256 }),
-    title: varchar("title", { length: 256 }),
-
+    publicDescription: varchar("public_description", { length: 1024 }),
+    title: varchar("title", { length: 256 }).unique(),
   }
 );
+
+export const trailblazerCertifications = createTable(
+  "trailblazer_certifications",
+  {
+    id: serial("id").primaryKey(),
+    linkedId: varchar('linked_id').unique(),
+    dateCompleted: date('date_completed'),
+    dateExpired: date('date_expired'),
+    maintenanceDueDate: date('maintenance_due_date'),
+    status: varchar("status", { length: 256 }),
+    certName: varchar("cert_name", { length: 256 }),
+    userProfileId: varchar("user_profile_id", { length: 256 }),
+  }
+);
+
+export const certificationRelations = relations(certifications, ({ one }) => ({
+  certification: one(trailblazerCertifications, {
+    fields: [certifications.title],
+    references: [trailblazerCertifications.id],
+  }),
+}));
+
+export const trailblazerCertificationRelations = relations(trailblazerCertifications, ({ one }) => ({
+  user: one(trailblazers, {
+    fields: [trailblazerCertifications.id],
+    references: [trailblazers.profileId],
+  }),
+}));
+
 export const trailheadRanks = createTable(
   "trailhead_rank",
   {
@@ -74,7 +103,7 @@ export const trailheadRanks = createTable(
     imageUrl: varchar("imageUrl", { length: 256 }),
     requiredPointsSum: integer('requiredPointsSum'),
     requiredBadgesCount: integer('requiredBadgesCount'),
-    title: varchar("title", { length: 256 }),
+    title: varchar("title", { length: 256 }).unique(),
   }
 );
 
