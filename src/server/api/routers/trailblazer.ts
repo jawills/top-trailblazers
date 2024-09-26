@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, gt, ne } from "drizzle-orm";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
@@ -16,7 +16,7 @@ export const trailblazerRouter = createTRPCRouter({
 
   getLatest: publicProcedure.query(async ({ ctx }) => {
     const trailblazer = await ctx.db.query.trailblazers.findMany({
-      where: (eq(trailblazers.isPublic, true)),
+      where: (and(eq(trailblazers.isPublic, true), gt(trailblazers.points, -1))),
       orderBy: (trailblazers, { desc }) => [desc(trailblazers.badges)],
     });
 
