@@ -12,6 +12,7 @@ import {
 import React from "react"
 import { Button } from "~/components/ui/button"
 import { Input } from "~/components/ui/input"
+import { useSearchParams } from "next/navigation";
 
 import {
   Table,
@@ -31,6 +32,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+
+  const searchParams = useSearchParams();
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )

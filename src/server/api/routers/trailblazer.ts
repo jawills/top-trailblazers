@@ -14,12 +14,19 @@ export const trailblazerRouter = createTRPCRouter({
   //     });
   //   }),
 
-  getLatest: publicProcedure.query(async ({ ctx }) => {
+  infiniteTrailblazers: publicProcedure.input(z.object({ 
+    limit: z.number().min(1).max(100).nullish(),
+    cursor: z.number().nullish(), 
+  })).query(async ({ input, ctx }) => {
+    const limit = input.limit ?? 50;
+    const offset = input.cursor ?? 0;
     const trailblazer = await ctx.db.query.trailblazers.findMany({
       where: (and(eq(trailblazers.isPublic, true), gt(trailblazers.points, -1))),
       orderBy: (trailblazers, { desc }) => [desc(trailblazers.badges)],
+      limit: limit,
+      offset: offset
     });
-
-    return trailblazer ?? null;
+    const nextCursor = trailblazer.length + offset;
+    return {trailblazer, nextCursor};
   }),
 });

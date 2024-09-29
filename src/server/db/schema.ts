@@ -68,6 +68,27 @@ export const certifications = createTable(
   }
 );
 
+export const awards = createTable(
+  "award",
+  {
+    id: varchar("id").primaryKey(),
+    title: varchar("title", { length: 1024 }),
+    icon: varchar("icon", { length: 1024 }),
+    webUrl: varchar("web_url", { length: 1024 }),
+    description: varchar("description", { length: 1024 }),
+    type: varchar("type", { length: 256 }),
+  }
+);
+
+export const earnedAwards = createTable(
+  "earned_award",
+  {
+    id: varchar("id").primaryKey(),
+    award_id: varchar("award_id", { length: 256 }),
+    user_id: varchar("user_id", { length: 256 }),
+  }
+);
+
 export const trailblazerCertifications = createTable(
   "trailblazer_certifications",
   {
