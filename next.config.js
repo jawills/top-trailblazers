@@ -11,7 +11,19 @@ const config = {
   },
   eslint: {
     ignoreDuringBuilds: true
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'trailblazers.salesforce.com',
+        port: '',
+        pathname: '/ncsphoto/**',
+      },
+    ],
+  },
 };
+// https://trailblazers.salesforce.com/profileView?u=0053A00000DBm9uQAD
+
 
 export default config;

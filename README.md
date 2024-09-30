@@ -1,5 +1,11 @@
 # Top Trailblazers
 
+See where you rank among the [Top Trailblazers](https://toptrailblazers.online)
+
+
+## Technology
+
+- [Table Sever Side Filtering](https://github.com/sadmann7/shadcn-table)
 
 ## MVP TODO
 
@@ -7,9 +13,8 @@
 - [x] Scaffold Basic UI
 - [x] Actually Setup DB
 - [x] Attatch DB to UI
-- [ ] Web Scraper with Inngest
 - [ ] server-side search
 - [ ] rate limiting
 - [ ] logging
 - [ ] analytics
-- [ ] Scrape images
+- [ ] Individual user page

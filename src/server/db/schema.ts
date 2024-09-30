@@ -8,6 +8,7 @@ import {
   date,
   index,
   integer,
+  pgEnum,
   pgTableCreator,
   serial,
   timestamp,
@@ -22,11 +23,38 @@ import {
  */
 export const createTable = pgTableCreator((name) => `top-trailblazers_${name}`);
 
+//@TODO figure out how to convert rank varchar to enum
+export enum Rank {
+  SCOUT = 'Scout',
+  HIKER = 'Hiker',
+  EXPLORER = 'Explorer',
+  ADVENTURER = 'Adventurer',
+  MOUNTAINEER = 'Mountaineer',
+  EXPEDITIONER = 'Expeditioner',
+  RANGER = 'Ranger',
+  DOUBLE_STAR_RANGER = 'Double Star Ranger',
+  TRIPLE_STAR_RANGER = 'Triple Star Ranger',
+  FOUR_STAR_RANGER = 'Four Star Ranger',
+  FIVE_STAR_RANGER = 'Five Star Ranger',
+  ALL_STAR_RANGER = 'All Star Ranger',
+}
+
+export function enumToPgEnum<T extends Record<string, any>>(
+  myEnum: T,
+): [T[keyof T], ...T[keyof T][]] {
+  return Object.values(myEnum).map((value: string) => `${value}`) as string
+}
+// https://github.com/drizzle-team/drizzle-orm/discussions/1914
+// https://trailhead.salesforce.com/trailblazer-ranks
+
+export const rankEnum = pgEnum('rank', enumToPgEnum(Rank))
+
+
 export const trailblazers = createTable(
   "trailblazer",
   {
     id: serial("id").primaryKey(),
-    rank: varchar('rank', {length: 256}),
+    rank: rankEnum('rank'),
     profileSlug: varchar('profile_slug', {length: 256}).unique(),
     profileId: varchar('profile_id', {length: 256}).unique(),
     salesforceId: varchar('salesforce_id', {length: 256}).unique(),
