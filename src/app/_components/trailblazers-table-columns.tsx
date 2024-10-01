@@ -4,7 +4,6 @@ import * as React from "react"
 import { trailblazers, type SelectTrailblazer } from "~/server/db/schema"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
 import { type ColumnDef } from "@tanstack/react-table"
-
 import { Button } from "~/components/ui/button"
 import {
   DropdownMenu,
@@ -22,10 +21,12 @@ import {
 import { DataTableColumnHeader } from "~/components/data-table/data-table-column-header"
 
 import Image from "next/image"
+import Link from "next/link"
 // import { DeleteTasksDialog } from "./delete-tasks-dialog"
 // import { UpdateTaskSheet } from "./update-task-sheet"
 
 export function getColumns(): ColumnDef<SelectTrailblazer>[] {
+
   return [
     {
       accessorKey: "avatarUrl",
@@ -80,6 +81,9 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
       },
     },
     {
+      accessorKey: "profileSlug",
+    },
+    {
       accessorKey: "points",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Points" />
@@ -91,11 +95,6 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
     {
       id: "actions",
       cell: function Cell({ row }) {
-        const [showUpdateTaskSheet, setShowUpdateTaskSheet] =
-          React.useState(false)
-        const [showDeleteTaskDialog, setShowDeleteTaskDialog] =
-          React.useState(false)
-
         return (
           <>
             <DropdownMenu>
@@ -109,49 +108,8 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
-                <DropdownMenuItem onSelect={() => setShowUpdateTaskSheet(true)}>
-                  Edit
-                </DropdownMenuItem>
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-                  <DropdownMenuSubContent>
-                    {/* <DropdownMenuRadioGroup
-                      value={row.original.name ?? null}
-                      onValueChange={(value) => {
-                        startUpdateTransition(() => {
-                          toast.promise(
-                            updateTask({
-                              id: row.original.id,
-                              label: value as SelectTrailblazer["label"],
-                            }),
-                            {
-                              loading: "Updating...",
-                              success: "Label updated",
-                              error: (err) => getErrorMessage(err),
-                            }
-                          )
-                        })
-                      }}
-                    >
-                      {tasks.label.enumValues.map((label) => (
-                        <DropdownMenuRadioItem
-                          key={label}
-                          value={label}
-                          className="capitalize"
-                          disabled={isUpdatePending}
-                        >
-                          {label}
-                        </DropdownMenuRadioItem>
-                      ))}
-                    </DropdownMenuRadioGroup> */}
-                  </DropdownMenuSubContent>
-                </DropdownMenuSub>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onSelect={() => setShowDeleteTaskDialog(true)}
-                >
-                  Delete
-                  <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+                <DropdownMenuItem>
+                <Link href={`u/${row.getValue('profileSlug')}`}>View</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

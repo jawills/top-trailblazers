@@ -27,6 +27,24 @@ const config = {
         port: '',
         pathname: '/img/userprofile/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'developer.salesforce.com',
+        port: '',
+        pathname: '/resource/images/trailhead/badges/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/hy4kyit2a/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dfc-static-production.s3.amazonaws.com',
+        port: '',
+        pathname: '/resource/images/trailhead/badges/**',
+      },
     ],
   },
 };

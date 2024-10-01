@@ -25,10 +25,10 @@ export default async function IndexPage({ searchParams }: IndexPageProps) {
         <React.Suspense
           fallback={
             <DataTableSkeleton
-              columnCount={5}
+              columnCount={9}
               searchableColumnCount={1}
-              filterableColumnCount={2}
-              cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem"]}
+              filterableColumnCount={1}
+              cellWidths={['1rem','1rem','1rem','1rem','1rem','1rem','1rem','1rem','1rem',]}
               shrinkZero
             />
           }

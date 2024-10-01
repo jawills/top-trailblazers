@@ -16,7 +16,7 @@ export async function getTrailblazers(input: GetTrailblazersSchema) {
     input
 
   try {
-    const safe_per_page = Math.min(Math.abs(per_page), 100)
+    const safe_per_page = Math.min(Math.abs(per_page), 50)
     // Offset to paginate the results
     const offset = (page - 1) * safe_per_page
     // Column and order to sort by

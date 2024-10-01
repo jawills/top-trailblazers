@@ -145,16 +145,23 @@ export const trailblazerCertificationRelations = relations(trailblazerCertificat
   }),
 }));
 
-export const trailheadRanks = createTable(
-  "trailhead_rank",
-  {
-    id: serial("id").primaryKey(),
-    imageUrl: varchar("imageUrl", { length: 256 }),
-    requiredPointsSum: integer('requiredPointsSum'),
-    requiredBadgesCount: integer('requiredBadgesCount'),
-    title: varchar("title", { length: 256 }).unique(),
-  }
-);
 
 export type SelectTrailblazer = typeof trailblazers.$inferSelect;
 export type InsertTrailblazer = typeof trailblazers.$inferInsert;
+
+
+export type SelectAward = typeof awards.$inferSelect;
+export type InsertAward = typeof awards.$inferInsert;
+
+
+export type SelectEarnedAward = typeof earnedAwards.$inferSelect;
+export type InsertEarnedAward = typeof earnedAwards.$inferInsert;
+
+export type SelectCertification = typeof trailblazerCertifications.$inferSelect;
+export type InsertCertification = typeof trailblazerCertifications.$inferInsert;
+
+
+export type BadgeUnion = {
+  award: SelectAward,
+  earned_award: SelectEarnedAward
+}
