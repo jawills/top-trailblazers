@@ -62,7 +62,7 @@ export function TrailblazersTable({ trailblazersPromise }: TrailblazerTableProps
     /* optional props */
     filterFields,
     initialState: {
-      sorting: [{ id: "createdAt", desc: true }],
+      sorting: [{ id: "points", desc: true }],
       columnPinning: { right: ["actions"] },
     },
     // For remembering the previous row selection on page change
