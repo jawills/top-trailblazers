@@ -1,12 +1,25 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from 'next/server';
+import { Ratelimit } from '@upstash/ratelimit';
+import { kv } from '@vercel/kv';
 
-export default clerkMiddleware();
+const ratelimit = new Ratelimit({
+  redis: kv,
+  // 5 requests from the same IP in 10 seconds
+  limiter: Ratelimit.slidingWindow(5, '10 s'),
+});
 
+// Define which routes you want to rate limit
 export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
+  matcher: '/',
 };
+
+export default async function middleware(request: NextRequest) {
+  // You could alternatively limit based on user ID or similar
+  const ip = request.ip ?? '127.0.0.1';
+  const { success, pending, limit, reset, remaining } = await ratelimit.limit(
+    ip
+  );
+  return success
+    ? NextResponse.next()
+    : NextResponse.redirect(new URL('/blocked', request.url));
+}
