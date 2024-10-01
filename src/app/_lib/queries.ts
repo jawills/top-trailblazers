@@ -39,6 +39,7 @@ export async function getTrailblazers(input: GetTrailblazersSchema) {
         ? filterColumn({
           column: trailblazers.rank,
           value: rank,
+          isSelectable: true
         })
         : undefined,
       isNotNull(trailblazers.points)  
