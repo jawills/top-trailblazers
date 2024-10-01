@@ -313,6 +313,7 @@ export function useDataTable<TData>({
       rowSelection,
       columnFilters,
     },
+    getRowId: originalRow => originalRow.profileSlug, 
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,

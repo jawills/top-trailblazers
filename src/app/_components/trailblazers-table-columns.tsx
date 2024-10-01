@@ -81,9 +81,6 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
       },
     },
     {
-      accessorKey: "profileSlug",
-    },
-    {
       accessorKey: "points",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Points" />
@@ -108,9 +105,11 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
+              <Link href={`u/${row.id}`}>
                 <DropdownMenuItem>
-                <Link href={`u/${row.getValue('profileSlug')}`}>View</Link>
+                View
                 </DropdownMenuItem>
+              </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </>
