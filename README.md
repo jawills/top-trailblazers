@@ -15,7 +15,9 @@ See where you rank among the [Top Trailblazers](https://toptrailblazers.online)
 - [x] Attatch DB to UI
 - [x] server-side search
 - [x] Individual user page
-- [ ] rate limiting
+- [x] rate limiting
 - [ ] logging
 - [ ] analytics
-- [ ] Request Scrape
+- [ ] Request Added to DB
+- [ ] Add /404 Page
+- [ ] Add /blocked page 
