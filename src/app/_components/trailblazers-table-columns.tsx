@@ -37,6 +37,15 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
       enableHiding: false,
     },
     {
+    accessorKey: "name",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Name" />
+      ),
+      filterFn: (row, id, value) => {
+        return Array.isArray(value) && value.includes(row.getValue(id))
+      },
+    },
+    {
       accessorKey: "title",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Title" />
@@ -47,15 +56,6 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
       accessorKey: "rank",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Rank" />
-      ),
-      filterFn: (row, id, value) => {
-        return Array.isArray(value) && value.includes(row.getValue(id))
-      },
-    },
-    {
-      accessorKey: "name",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Name" />
       ),
       filterFn: (row, id, value) => {
         return Array.isArray(value) && value.includes(row.getValue(id))
