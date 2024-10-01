@@ -13,7 +13,7 @@ See where you rank among the [Top Trailblazers](https://toptrailblazers.online)
 - [x] Scaffold Basic UI
 - [x] Actually Setup DB
 - [x] Attatch DB to UI
-- [ ] server-side search
+- [x] server-side search
 - [ ] rate limiting
 - [ ] logging
 - [ ] analytics

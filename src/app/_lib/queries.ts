@@ -16,8 +16,9 @@ export async function getTrailblazers(input: GetTrailblazersSchema) {
     input
 
   try {
+    const safe_per_page = Math.min(Math.abs(per_page), 100)
     // Offset to paginate the results
-    const offset = (page - 1) * per_page
+    const offset = (page - 1) * safe_per_page
     // Column and order to sort by
     // Spliting the sort string by "." to get the column and order
     // Example: "title.desc" => ["title", "desc"]
@@ -51,7 +52,7 @@ export async function getTrailblazers(input: GetTrailblazersSchema) {
       const data = await tx
         .select()
         .from(trailblazers)
-        .limit(per_page)
+        .limit(safe_per_page)
         .offset(offset)
         .where(where)
         .orderBy(
@@ -77,7 +78,7 @@ export async function getTrailblazers(input: GetTrailblazersSchema) {
       }
     })
 
-    const pageCount = Math.ceil(total / per_page)
+    const pageCount = Math.ceil(total / safe_per_page)
     return { data, pageCount }
   } catch (err) {
     return { data: [], pageCount: 0 }
