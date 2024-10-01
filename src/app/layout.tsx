@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [`${siteConfig.url}/opengraph-image.png`]
   },
   twitter: {
     card: "summary_large_image",
