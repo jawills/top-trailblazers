@@ -26,5 +26,7 @@ See where you rank among the [Top Trailblazers](https://toptrailblazers.online)
 - [x] rate limiting
 - [x] Add /404 Page
 - [x] Add /blocked page 
-- [ ] Open Graph
+- [x] Open Graph
 - [ ] Request Added to DB
+- [ ] Add footer
+- [ ] Add about
