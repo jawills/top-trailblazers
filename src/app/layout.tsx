@@ -46,6 +46,15 @@ export const metadata: Metadata = {
     images: [`${siteConfig.url}/opengraph-image.png`],
     creator: "jawills",
   },
+  robots:{
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    }
+  },
   manifest: `${siteConfig.url}/site.webmanifest`,
 };
 

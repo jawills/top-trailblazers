@@ -22,6 +22,7 @@ import { DataTableColumnHeader } from "~/components/data-table/data-table-column
 
 import Image from "next/image"
 import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import { DeleteTasksDialog } from "./delete-tasks-dialog"
 // import { UpdateTaskSheet } from "./update-task-sheet"
 
@@ -33,7 +34,11 @@ export function getColumns(): ColumnDef<SelectTrailblazer>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Profile" />
       ),
-      cell: ({ row }) => <Image className="rounded-full" src={row.getValue("avatarUrl")} width={50} height={50} alt={row.getValue("name")}/>,
+      cell: ({ row }) => 
+      <Avatar>
+      <AvatarImage src={row.getValue("avatarUrl")} alt={row.getValue("name")} />
+      <AvatarFallback>TT</AvatarFallback>
+    </Avatar>,
       enableSorting: false,
       enableHiding: false,
     },
