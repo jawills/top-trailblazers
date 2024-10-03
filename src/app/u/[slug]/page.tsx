@@ -9,8 +9,30 @@ import { DataTableSkeleton } from "~/components/data-table/data-table-skeleton"
 import { CertsTable } from "./_components/certs-table/certs-table"
 import { Card } from "~/components/ui/card"
 import ProfileCard from "./_components/profile-card"
+import { Metadata, ResolvingMetadata } from "next"
 
-export default async function TrailblazerPage({ params }: { params: { slug: string } }) {
+type Props = {
+  params: { slug: string }
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params 
+  // fetch data
+  const trailblazer = await api.trailblazer.getTrailblazer({slug: params.slug})
+ 
+  // optionally access and extend (rather than replace) parent metadata
+   return {
+    title: trailblazer?.name,
+    openGraph: {
+      images: [trailblazer?.avatarUrl ?? ''],
+    },
+  }
+}
+
+export default async function TrailblazerPage({ params }: Props ) {
   const trailblazer = await api.trailblazer.getTrailblazer({slug: params.slug})
   if (!trailblazer){
     return notFound()
