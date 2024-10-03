@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { SiteHeader } from "./_components/site-header";
 import { ThemeProvider } from "~/components/providers"
 import { cn } from "~/lib/utils";
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: "Top Trailblazers",
@@ -82,6 +83,7 @@ export default function RootLayout({
 
           </div>
           </ThemeProvider>
+          <Analytics/>
         </TRPCReactProvider>
       </body>
     </html>
