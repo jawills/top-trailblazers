@@ -15,10 +15,9 @@ export const getTrailblazersSchema = searchParamsSchema
 
 export type GetTrailblazersSchema = z.infer<typeof getTrailblazersSchema>
 
+// https://www.salesforce.com/trailblazer/justinwills
 export const createTrailblazerSchema = z.object({
-  title: z.string(),
-  name: z.string(),
-  rank: z.string() //z.enum(trailblazers.rank),
+  profileUrl: z.string().regex(new RegExp('https:\/\/www.salesforce.com\/trailblazer\/([a-zA-Z0-9]*)'), 'Please use the correct url format'),
 })
 
 export type CreateTrailblazerSchema = z.infer<typeof createTrailblazerSchema>

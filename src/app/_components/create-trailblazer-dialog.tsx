@@ -31,8 +31,8 @@ import {
 
 // import { createTrailblazer } from "../_lib/actions"
 import { createTrailblazerSchema, type CreateTrailblazerSchema } from "../_lib/validations"
-// import { CreateTrailblazerForm } from "./create-trailblazer-form"
-
+import { CreateTrailblazerForm } from "./create-trailblazer-form"
+import { api } from "~/trpc/react"
 export function CreateTrailblazerDialog() {
   const [open, setOpen] = React.useState(false)
   const [isCreatePending, startCreateTransition] = React.useTransition()
@@ -41,16 +41,10 @@ export function CreateTrailblazerDialog() {
   const form = useForm<CreateTrailblazerSchema>({
     resolver: zodResolver(createTrailblazerSchema),
   })
-
+  const createTrailblazer = api.trailblazer.createTrailblazer.useMutation();
   function onSubmit(input: CreateTrailblazerSchema) {
     startCreateTransition(async () => {
-      // const { error } = await createTrailblazer(input)
-
-      // if (error) {
-      //   toast.error(error)
-      //   return
-      // }
-
+      createTrailblazer.mutate(input)
       form.reset()
       setOpen(false)
       toast.success("Trailblazer created")
@@ -73,7 +67,7 @@ export function CreateTrailblazerDialog() {
               Fill in the details below to create a new trailblazer.
             </DialogDescription>
           </DialogHeader>
-          {/* <CreateTrailblazerForm form={form} onSubmit={onSubmit}>
+          <CreateTrailblazerForm form={form} onSubmit={onSubmit}>
             <DialogFooter className="gap-2 pt-2 sm:space-x-0">
               <DialogClose asChild>
                 <Button type="button" variant="outline">
@@ -90,7 +84,7 @@ export function CreateTrailblazerDialog() {
                 Create
               </Button>
             </DialogFooter>
-          </CreateTrailblazerForm> */}
+          </CreateTrailblazerForm>
         </DialogContent>
       </Dialog>
     )

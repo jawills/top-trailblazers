@@ -43,107 +43,17 @@ export function CreateTrailblazerForm({
       >
         <FormField
           control={form.control}
-          name="title"
+          name="profileUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>Profile Url</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Do a kickflip"
+                  placeholder="https://www.salesforce.com/trailblazer/justinwills"
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="label"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Label</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className="capitalize">
-                    <SelectValue placeholder="Select a label" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {/* <SelectGroup>
-                    {trailblazers.label.enumValues.map((item) => (
-                      <SelectItem
-                        key={item}
-                        value={item}
-                        className="capitalize"
-                      >
-                        {item}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup> */}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="status"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Status</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className="capitalize">
-                    <SelectValue placeholder="Select a status" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {/* <SelectGroup>
-                    {trailblazers.status.enumValues.map((item) => (
-                      <SelectItem
-                        key={item}
-                        value={item}
-                        className="capitalize"
-                      >
-                        {item}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup> */}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="priority"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Priority</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className="capitalize">
-                    <SelectValue placeholder="Select a priority" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {/* <SelectGroup>
-                    {trailblazers.priority.enumValues.map((item) => (
-                      <SelectItem
-                        key={item}
-                        value={item}
-                        className="capitalize"
-                      >
-                        {item}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup> */}
-                </SelectContent>
-              </Select>
               <FormMessage />
             </FormItem>
           )}
