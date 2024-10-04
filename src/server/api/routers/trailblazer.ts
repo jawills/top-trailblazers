@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { and, eq, gt } from "drizzle-orm";
 import { z } from "zod";
 import { getTrailblazers } from "~/app/_lib/queries";
@@ -32,11 +33,14 @@ export const trailblazerRouter = createTRPCRouter({
   createTrailblazer: publicProcedure.input(createTrailblazerSchema).mutation(async ({ input, ctx }) => {
     const regex = 'https:\/\/www.salesforce.com\/trailblazer\/([a-zA-Z0-9]*)'
     const slug = RegExp(regex).exec(input.profileUrl)
-    if(!slug){
-      return {'status': 'fail'};
+    if(!slug || slug.length < 2){
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'Could not parse the url.',
+      });
     }
     await ctx.db.insert(trailblazers)
-    .values( {profileUrl: input.profileUrl, profileSlug: slug[0] })
+    .values( {profileUrl: input.profileUrl, profileSlug: slug[1] })
     .onConflictDoNothing();
     return {'status': 'success'};
   }),

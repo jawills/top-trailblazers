@@ -28,12 +28,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "~/components/ui/drawer"
+import { useToast } from "~/hooks/use-toast"
 
 // import { createTrailblazer } from "../_lib/actions"
 import { createTrailblazerSchema, type CreateTrailblazerSchema } from "../_lib/validations"
 import { CreateTrailblazerForm } from "./create-trailblazer-form"
 import { api } from "~/trpc/react"
 export function CreateTrailblazerDialog() {
+  const { toast } = useToast()
   const [open, setOpen] = React.useState(false)
   const [isCreatePending, startCreateTransition] = React.useTransition()
   const isDesktop = useMediaQuery("(min-width: 640px)")
@@ -42,13 +44,13 @@ export function CreateTrailblazerDialog() {
     resolver: zodResolver(createTrailblazerSchema),
   })
   const createTrailblazer = api.trailblazer.createTrailblazer.useMutation();
-  function onSubmit(input: CreateTrailblazerSchema) {
-    startCreateTransition(async () => {
-      createTrailblazer.mutate(input)
+  async function onSubmit(input: CreateTrailblazerSchema) {
+      createTrailblazer.mutateAsync(input).catch(() => {
+        toast({title: "Trailblazer Not Created", description: 'Failed to parse the profile url', variant: 'destructive'})
+      })
+      toast({title: "Trailblazer created", description: 'Trailblazer added to the queue for scraping.'})
       form.reset()
       setOpen(false)
-      toast.success("Trailblazer created")
-    })
   }
 
   if (isDesktop)

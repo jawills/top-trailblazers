@@ -9,6 +9,7 @@ import { ThemeProvider } from "~/components/providers"
 import { cn } from "~/lib/utils";
 import { Analytics } from "@vercel/analytics/react"
 import { SiteFooter } from "~/components/site-footer";
+import { Toaster } from "~/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Top Trailblazers",
@@ -81,8 +82,10 @@ export default function RootLayout({
           <div className="relative flex min-h-screen flex-col items-center	">
                       <SiteHeader/>
                       {children}
+                      <Toaster />
                       <SiteFooter/>
           </div>
+          
           </ThemeProvider>
           <Analytics/>
         </TRPCReactProvider>
